@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ghs7t6o6c22u"]
+
+[ext_resource type="Script" uid="uid://dqqqqqcs0l5hx" path="res://scenes/abilities/projectiles/dagger/controller/dagger_ability_controller.gd" id="1_syrel"]
+
+[node name="DaggerAbilityController" type="Node2D"]
+script = ExtResource("1_syrel")
+id = "dagger"
+
+[node name="ReleaseTimer" type="Timer" parent="."]
+autostart = true

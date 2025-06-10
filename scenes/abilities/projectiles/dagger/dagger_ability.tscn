@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://dlp7rmqqbhx1c"]
+
+[ext_resource type="Script" uid="uid://dtxv6nmg8xcn8" path="res://scenes/abilities/projectiles/dagger/dagger_ability.gd" id="1_n77k2"]
+[ext_resource type="Texture2D" uid="uid://d3551m3sleq2a" path="res://assets/textures/object/projectile/Dagger.png" id="2_8a5to"]
+[ext_resource type="Texture2D" uid="uid://dws0i5gamcdm6" path="res://assets/textures/object/projectile/Dagger_impact.png" id="3_8a5to"]
+[ext_resource type="PackedScene" uid="uid://dxr2b6wxhhgsd" path="res://scenes/components/hit_box_component.tscn" id="4_3dji7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dji7"]
+atlas = ExtResource("3_8a5to")
+region = Rect2(0, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3x22"]
+atlas = ExtResource("3_8a5to")
+region = Rect2(6, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1mp3"]
+atlas = ExtResource("3_8a5to")
+region = Rect2(12, 0, 6, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p8esu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dji7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3x22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1mp3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3x22"]
+size = Vector2(10, 6)
+
+[node name="DaggerAbility" type="Node2D"]
+script = ExtResource("1_n77k2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_8a5to")
+
+[node name="HitEffect" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(3, 0)
+sprite_frames = SubResource("SpriteFrames_p8esu")
+frame = 2
+frame_progress = 1.0
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_3dji7")]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_s3x22")
