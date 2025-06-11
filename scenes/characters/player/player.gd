@@ -83,3 +83,6 @@ func on_died() -> void:
 	is_dead = true
 	health_bar.visible = false
 	abilities.set_process(false)
+	set_process(false)
+	animated_sprite.play("die_" + animate_dirction)
+	await animated_sprite.animation_finished

@@ -12,11 +12,11 @@ func _ready() -> void:
 	hit_box_component.area_entered.connect(_on_area_entered)
 	rotation = direction.angle()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	position += direction * speed * delta
 	
-func _on_area_entered(area: Area2D) -> void:
-	set_physics_process(false)
+func _on_area_entered(_area: Area2D) -> void:
+	set_process(false)
 	sprite.hide()
 	hit_effect.show()
 	hit_effect.play()

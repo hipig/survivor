@@ -10,7 +10,7 @@ func _ready() -> void:
 	hurt_box_component.hurted.connect(_on_hurted)
 	health_component.died.connect(_on_died)
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	velocity_component.accelerate_to_player()
 	velocity_component.move(self)
 	
@@ -26,7 +26,7 @@ func _on_hurted(damage: float) -> void:
 
 func _on_died() -> void:
 	Events.emit_enemy_died(self)
-	set_physics_process(false)
+	set_process(false)
 	animated_sprite.play("die_" + animate_dirction)
 	await animated_sprite.animation_finished
 	queue_free()

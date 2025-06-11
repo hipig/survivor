@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=4 uid="uid://cqvos8ua5komp"]
+[gd_scene load_steps=7 format=4 uid="uid://cqvos8ua5komp"]
 
+[ext_resource type="Script" uid="uid://dfqwjrfrckc6w" path="res://scenes/map/map.gd" id="1_khyrr"]
 [ext_resource type="TileSet" uid="uid://chkijdrsl3gvu" path="res://resources/tilesets/terrain_base.tres" id="1_oie4k"]
+[ext_resource type="PackedScene" uid="uid://cxtgg2fhxwvei" path="res://scenes/manager/arena_time_manager.tscn" id="2_j3c3p"]
 [ext_resource type="PackedScene" uid="uid://cm7m48govklbf" path="res://scenes/characters/player/player.tscn" id="2_ugnyo"]
 [ext_resource type="PackedScene" uid="uid://ddvd6a4i25dbw" path="res://scenes/characters/enemies/slime/slime_enemy.tscn" id="3_8llpc"]
+[ext_resource type="PackedScene" uid="uid://dre5miivukmh6" path="res://scenes/manager/enemy_manager.tscn" id="3_ovg7s"]
 
 [node name="TestMapScene" type="Node2D"]
+script = ExtResource("1_khyrr")
+
+[node name="ArenaTimeManager" parent="." instance=ExtResource("2_j3c3p")]
+
+[node name="EnemyManager" parent="." instance=ExtResource("3_ovg7s")]
+spawn_config = "res://resources/config/spawn/level1.json"
 
 [node name="Map" type="Node2D" parent="."]
 

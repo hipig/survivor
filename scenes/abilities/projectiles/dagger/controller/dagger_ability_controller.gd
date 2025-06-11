@@ -10,14 +10,16 @@ const MAX_RANGE = 150
 var base_damage: float = 10.0
 var damage: float
 var additional_damage_percent: float = 1
+var release_interval: float = 1.0
 
 func _ready() -> void:
 	damage = base_damage
+	release_timer.wait_time = release_interval
 	release_timer.timeout.connect(_on_release_timeout)
 
 func _on_release_timeout() -> void:
 	var player: Player = Groups.player
-	if player == null:
+	if player == null or player.is_dead:
 		return
 	
 	var foreground: Node2D = Groups.foreground_layer as Node2D

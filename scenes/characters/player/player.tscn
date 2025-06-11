@@ -22,7 +22,7 @@ script = ExtResource("1_6avc5")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_686vu")
-animation = &"idle_down"
+animation = &"die_up"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -49,6 +49,7 @@ debug_color = Color(0.994505, 0, 0.220991, 0.42)
 
 [node name="DamageIntervalTimer" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
 
 [node name="HealIntervalTimer" type="Timer" parent="."]
 

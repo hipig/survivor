@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dre5miivukmh6"]
+
+[ext_resource type="Script" uid="uid://c3g0yubjvk6sy" path="res://scenes/manager/enemy_manager.gd" id="1_jybml"]
+
+[node name="EnemyManager" type="Node2D"]
+script = ExtResource("1_jybml")
+spawn_config = "<null>"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true

@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://drcj335sq2fjc"]
+
+[ext_resource type="Script" uid="uid://su3qqv07vgw7" path="res://scenes/ui/hud/arena_time/arena_time_ui.gd" id="1_renuo"]
+
+[node name="ArenaTimeUI" type="CanvasLayer"]
+script = ExtResource("1_renuo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_right = 43.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DifficultyLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "第1/20波"
+
+[node name="LeftTimeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
