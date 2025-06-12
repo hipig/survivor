@@ -4,6 +4,11 @@ class_name DropComponent
 @export var drop_list: Array[DropData]
 @export var drop_value: float = 1.0
 @export var is_spawn_around_pos: bool = true
+@export var gravity: float = 300.0
+@export var bounce_height: float = 30.0
+@export var bounce_duration: float = 0.5
+
+var velocity: Vector2 = Vector2.ZERO
 
 func random_inside_unit_circle() -> Vector2:
 	var theta : float = randf() * 2 * PI
