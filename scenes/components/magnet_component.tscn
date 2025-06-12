@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0m7tie43m2sb"]
+
+[ext_resource type="Script" uid="uid://dv5mvlhuc0fnu" path="res://scenes/components/magnet_component.gd" id="1_edt5q"]
+
+[node name="MagnetComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_edt5q")

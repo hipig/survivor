@@ -1,21 +1,40 @@
-[gd_scene load_steps=7 format=4 uid="uid://cqvos8ua5komp"]
+[gd_scene load_steps=13 format=4 uid="uid://cqvos8ua5komp"]
 
 [ext_resource type="Script" uid="uid://dfqwjrfrckc6w" path="res://scenes/map/map.gd" id="1_khyrr"]
 [ext_resource type="TileSet" uid="uid://chkijdrsl3gvu" path="res://resources/tilesets/terrain_base.tres" id="1_oie4k"]
 [ext_resource type="PackedScene" uid="uid://cxtgg2fhxwvei" path="res://scenes/manager/arena_time_manager.tscn" id="2_j3c3p"]
+[ext_resource type="PackedScene" uid="uid://drcj335sq2fjc" path="res://scenes/ui/hud/arena_time/arena_time_ui.tscn" id="2_ovg7s"]
 [ext_resource type="PackedScene" uid="uid://cm7m48govklbf" path="res://scenes/characters/player/player.tscn" id="2_ugnyo"]
+[ext_resource type="PackedScene" uid="uid://c6ksnakjx5hhc" path="res://scenes/ui/hud/score/score_ui.tscn" id="3_2mgei"]
 [ext_resource type="PackedScene" uid="uid://ddvd6a4i25dbw" path="res://scenes/characters/enemies/slime/slime_enemy.tscn" id="3_8llpc"]
 [ext_resource type="PackedScene" uid="uid://dre5miivukmh6" path="res://scenes/manager/enemy_manager.tscn" id="3_ovg7s"]
+[ext_resource type="PackedScene" uid="uid://cncvdia2p5e8w" path="res://scenes/ui/hud/experience/experience_ui.tscn" id="4_2qort"]
+[ext_resource type="PackedScene" uid="uid://c6ascb3t1s6l6" path="res://scenes/manager/score_manager.tscn" id="6_2mgei"]
+[ext_resource type="PackedScene" uid="uid://rui736gxnsvh" path="res://scenes/map/camera/map_camera.tscn" id="7_v8fdr"]
+[ext_resource type="PackedScene" uid="uid://8wmejg5jmmlu" path="res://scenes/manager/experience_manager.tscn" id="7_xro4c"]
 
 [node name="TestMapScene" type="Node2D"]
 script = ExtResource("1_khyrr")
+
+[node name="ArenaTimeUI" parent="." node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("2_ovg7s")]
+arena_time_manager = NodePath("../ArenaTimeManager")
+
+[node name="ScoreUI" parent="." instance=ExtResource("3_2mgei")]
+
+[node name="ExperienceUI" parent="." instance=ExtResource("4_2qort")]
 
 [node name="ArenaTimeManager" parent="." instance=ExtResource("2_j3c3p")]
 
 [node name="EnemyManager" parent="." instance=ExtResource("3_ovg7s")]
 spawn_config = "res://resources/config/spawn/level1.json"
 
+[node name="ScoreManager" parent="." instance=ExtResource("6_2mgei")]
+
+[node name="ExperienceManager" parent="." instance=ExtResource("7_xro4c")]
+
 [node name="Map" type="Node2D" parent="."]
+
+[node name="MapCamera" parent="Map" instance=ExtResource("7_v8fdr")]
 
 [node name="TileMap" type="Node2D" parent="Map"]
 

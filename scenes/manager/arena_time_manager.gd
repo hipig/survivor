@@ -5,7 +5,7 @@ signal arena_difficulty_increased(arena_difficulty: int)
 signal arena_timer_finished
 
 @export var max_difficulty: int = 20
-@export var difficulty_interval: int = 20
+@export var difficulty_interval: int = 21
 
 @onready var timer: Timer = $Timer
 @onready var all_time_in_run_timer: Timer = $AllTimeInRunTimer

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc1fvxs0lcbjf"]
+
+[ext_resource type="Script" uid="uid://b0wmeplk4fhyb" path="res://scenes/objects/drop_items/experience_bottle/experience_bottle.gd" id="1_3w3v2"]
+[ext_resource type="Texture2D" uid="uid://c2m3lk63sinu5" path="res://assets/textures/ui/icon/experience_bottle/medium.png" id="2_3w3v2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4xox"]
+atlas = ExtResource("2_3w3v2")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12dnh"]
+radius = 6.0
+height = 16.0
+
+[node name="MediumExperienceBottle" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_3w3v2")
+experience_value = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_v4xox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_12dnh")

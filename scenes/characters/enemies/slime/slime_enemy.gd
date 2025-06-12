@@ -2,6 +2,7 @@ extends Enemy
 class_name SlimeEnemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var drop_component: DropComponent = $DropComponent
 @onready var velocity_component: VelocityComponent = $VelocityComponent
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hurt_box_component: HurtBoxComponent = $HurtBoxComponent
@@ -29,4 +30,5 @@ func _on_died() -> void:
 	set_process(false)
 	animated_sprite.play("die_" + animate_dirction)
 	await animated_sprite.animation_finished
+	drop_component.drop()
 	queue_free()

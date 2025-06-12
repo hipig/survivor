@@ -21,7 +21,6 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timeout)
 
 func prepare_spawn_table() -> void:
-	print(FileAccess.get_file_as_string(spawn_config))
 	var spawn_pool = JSON.parse_string(FileAccess.get_file_as_string(spawn_config)) as Array[Dictionary]
 	for pool in spawn_pool:
 		var weight_table: WeightTable = WeightTable.new()
@@ -60,12 +59,12 @@ func pick_random_enemy(difficulty: int) -> PackedScene:
 		difficulty = -1
 	return spawn_table[difficulty].random_item()	
 	
-func difficulty_increased(arena_difficulty: int) -> void:
+func increase_difficulty(arena_difficulty: int) -> void:
 	current_difficulty = arena_difficulty
 	var time_off: float = (0.1 / 12) * arena_difficulty
 	time_off = min(time_off, 0.75)
 	timer.wait_time = spawn_interval - time_off
-	spawn_difficulty_count += 1	
+	spawn_difficulty_count += 1
 	
 func _on_timeout() -> void:
 	timer.start()
