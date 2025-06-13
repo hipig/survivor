@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpmpyj6g3mixs"]
+
+[ext_resource type="Script" uid="uid://h3xm4mtfbheb" path="res://scenes/ui/upgrade/upgrade_ui.gd" id="1_1vtxc"]
+[ext_resource type="PackedScene" uid="uid://b67sm2faf4a7d" path="res://scenes/ui/upgrade/upgrade_card.tscn" id="2_6ikm1"]
+
+[node name="UpgradeUI" type="CanvasLayer"]
+script = ExtResource("1_1vtxc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.239216, 0.160784, 0.207843, 0.494118)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="UpgradeCard" parent="MarginContainer/CardContainer" instance=ExtResource("2_6ikm1")]
+layout_mode = 2
+
+[node name="UpgradeCard2" parent="MarginContainer/CardContainer" instance=ExtResource("2_6ikm1")]
+layout_mode = 2
+
+[node name="UpgradeCard3" parent="MarginContainer/CardContainer" instance=ExtResource("2_6ikm1")]
+layout_mode = 2

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityUnlock" load_steps=2 format=3 uid="uid://bcn7dpl1ft54s"]
+
+[ext_resource type="Script" uid="uid://ch6q1xhxaktyt" path="res://scripts/resources/upgrade/ability_unlock.gd" id="1_3b5kr"]
+
+[resource]
+script = ExtResource("1_3b5kr")
+id = "dagger"
+name = "短剑"
+description = ""
+weight = 1
+metadata/_custom_type_script = "uid://ch6q1xhxaktyt"

@@ -1,0 +1,224 @@
+[gd_scene load_steps=16 format=3 uid="uid://b67sm2faf4a7d"]
+
+[ext_resource type="Texture2D" uid="uid://4csh6iknf7ek" path="res://assets/textures/ui/panel/BGbox_02A.png" id="1_w70ph"]
+[ext_resource type="Texture2D" uid="uid://ckmqpm2med7v7" path="res://assets/textures/ui/title/BannerMedium_02C.png" id="2_k6n6e"]
+[ext_resource type="Script" uid="uid://couwrhoba2xqb" path="res://scenes/ui/upgrade/upgrade_card.gd" id="2_vm3hf"]
+[ext_resource type="Texture2D" uid="uid://d3551m3sleq2a" path="res://assets/textures/object/projectile/Dagger.png" id="3_vm3hf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ffgl"]
+atlas = ExtResource("1_w70ph")
+region = Rect2(6, 6, 36, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k6n6e"]
+texture = SubResource("AtlasTexture_7ffgl")
+texture_margin_left = 7.0
+texture_margin_top = 7.82094
+texture_margin_right = 7.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="Animation" id="Animation_vm3hf"]
+resource_name = "in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_puii3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_t406y"]
+resource_name = "discard"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_p3v6p"]
+resource_name = "selected"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.0872665, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t406y"]
+_data = {
+&"RESET": SubResource("Animation_puii3"),
+&"discard": SubResource("Animation_t406y"),
+&"in": SubResource("Animation_vm3hf"),
+&"selected": SubResource("Animation_p3v6p")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_puii3"]
+atlas = ExtResource("2_k6n6e")
+region = Rect2(2, 8, 44, 17)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vm3hf"]
+texture = SubResource("AtlasTexture_puii3")
+texture_margin_left = 8.0
+texture_margin_top = 2.0
+texture_margin_right = 8.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm3hf"]
+atlas = ExtResource("1_w70ph")
+region = Rect2(6, 6, 36, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_puii3"]
+texture = SubResource("AtlasTexture_vm3hf")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 36, 36)
+
+[node name="UpgradeCard" type="PanelContainer" groups=["upgrade_cards"]]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 154.0
+offset_bottom = 160.0
+pivot_offset = Vector2(75, 75)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_k6n6e")
+script = ExtResource("2_vm3hf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t406y")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = -18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+z_index = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vm3hf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 3
+
+[node name="NameLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.321569, 0.2, 0.247059, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "短剑数量"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_puii3")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_vm3hf")
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0.321569, 0.2, 0.247059, 1)
+theme_override_constants/outline_size = 6
+text = "LV 1"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0.321569, 0.2, 0.247059, 1)
+theme_override_constants/outline_size = 6
+text = "增加同时发射的匕首数量"
+autowrap_mode = 2
+clip_text = true

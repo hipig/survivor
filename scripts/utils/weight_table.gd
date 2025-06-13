@@ -4,6 +4,9 @@ class_name WeightTable
 var items: Array[Dictionary] = []
 var weight_sum: int = 0
 
+func all() -> Array:
+	return items
+
 func add_item(item: Variant, weight: int) -> void:
 	items.append({
 		"item": item,
@@ -17,7 +20,7 @@ func remove_item(removed_item: Variant) -> void:
 	for item in items:
 		weight_sum += item["weight"]
 
-func random_item(exclude: Array = []) -> Variant:
+func pick_item(exclude: Array = []) -> Variant:
 	var adjusted_items: Array[Dictionary] = items
 	var adjusted_weight_sum: int = weight_sum
 	if exclude.size() > 0:

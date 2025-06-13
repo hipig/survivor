@@ -19,6 +19,8 @@ func _ready() -> void:
 	prepare_spawn_table()
 	timer.wait_time = spawn_interval
 	timer.timeout.connect(_on_timeout)
+	Events.enemy_died.connect(_on_enemy_died)
+	Events.arena_difficulty_increased.connect(_on_arena_difficulty_increased)
 
 func prepare_spawn_table() -> void:
 	var spawn_pool = JSON.parse_string(FileAccess.get_file_as_string(spawn_config)) as Array[Dictionary]
@@ -57,7 +59,7 @@ func get_spawn_position() -> Vector2:
 func pick_random_enemy(difficulty: int) -> PackedScene:
 	if difficulty >= spawn_table.size():
 		difficulty = -1
-	return spawn_table[difficulty].random_item()	
+	return spawn_table[difficulty].pick_item()	
 	
 func increase_difficulty(arena_difficulty: int) -> void:
 	current_difficulty = arena_difficulty
@@ -87,3 +89,9 @@ func _on_timeout() -> void:
 			var entities_layer: Node2D = Groups.entities_layer
 			entities_layer.add_child(enemy)
 			spawn_count += 1
+
+func _on_enemy_died(_enemy: Enemy) -> void:
+	spawn_count -= 1
+
+func _on_arena_difficulty_increased(difficulty: int) -> void:
+	increase_difficulty(difficulty)

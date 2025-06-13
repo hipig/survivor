@@ -6,7 +6,11 @@ class_name ScoreUI
 var score: int = 0
 
 func _ready() -> void:
-	update_score(0, false)
+	update_score(0)
+	Events.score_updated.connect(_on_score_updated)
 	
-func update_score(score: int) -> void:
-	score_label.text = str(score)
+func update_score(new_score: int) -> void:
+	score_label.text = str(new_score)
+
+func _on_score_updated(new_score: int) -> void:
+	update_score(new_score)

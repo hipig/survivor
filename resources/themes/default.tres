@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cf1bkdhjqfema"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cf1bkdhjqfema"]
 
-[ext_resource type="Texture2D" uid="uid://cv22o2618ducl" path="res://assets/textures/ui/panel/BGbox_01A.png" id="1_sn1o5"]
 [ext_resource type="FontFile" uid="uid://dar2uffbhe17p" path="res://assets/fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" id="2_kyium"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipp3m"]
@@ -9,21 +8,9 @@ bg_color = Color(0.321569, 0.2, 0.247059, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sn1o5"]
 bg_color = Color(0.262745, 0.882353, 0.701961, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyium"]
-atlas = ExtResource("1_sn1o5")
-region = Rect2(6, 6, 36, 36)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lmgqb"]
-texture = SubResource("AtlasTexture_kyium")
-texture_margin_left = 9.74326
-texture_margin_top = 10.004
-texture_margin_right = 9.47993
-texture_margin_bottom = 9.74326
-
 [resource]
 default_font = ExtResource("2_kyium")
 default_font_size = 14
 HPProgressBar/base_type = &"ProgressBar"
 HPProgressBar/styles/background = SubResource("StyleBoxFlat_ipp3m")
 HPProgressBar/styles/fill = SubResource("StyleBoxFlat_sn1o5")
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_lmgqb")
