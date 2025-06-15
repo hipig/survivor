@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AbilityUnlock" load_steps=4 format=3 uid="uid://bcn7dpl1ft54s"]
+
+[ext_resource type="Script" uid="uid://ch6q1xhxaktyt" path="res://scripts/resources/upgrade/ability_unlock.gd" id="1_3b5kr"]
+[ext_resource type="PackedScene" uid="uid://ghs7t6o6c22u" path="res://scenes/abilities/projectiles/dagger/controller/dagger_ability_controller.tscn" id="1_65o8g"]
+[ext_resource type="Texture2D" uid="uid://d3551m3sleq2a" path="res://assets/textures/object/projectile/Dagger.png" id="2_foslq"]
+
+[resource]
+script = ExtResource("1_3b5kr")
+ability_controller = ExtResource("1_65o8g")
+id = "dagger"
+name = "短剑"
+description = "获得一把短剑"
+icon = ExtResource("2_foslq")
+max_level = 1
+weight = 1
+metadata/_custom_type_script = "uid://ch6q1xhxaktyt"

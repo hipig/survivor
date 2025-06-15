@@ -8,7 +8,11 @@ signal arena_timer_finished
 signal experience_bottle_collected(value: float)
 signal experience_updated(current_experience: float, target_experience: float)
 signal level_up(current_level: int)
+
 signal upgrades_generated(upgrades: Array[Upgrade], current_upgrades: Dictionary)
+signal upgrade_selected(upgrade: Upgrade)
+signal upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary)
+signal ability_controller_added(ability_controller: AbilityController)
 
 signal spawn_health_potion(spawn_position: Vector2)
 
@@ -41,6 +45,15 @@ func emit_level_up(current_level: int) -> void:
 	
 func emit_upgrades_generated(upgrades: Array[Upgrade], current_upgrades: Dictionary) -> void:
 	upgrades_generated.emit(upgrades, current_upgrades)
+
+func emit_upgrade_selected(upgrade: Upgrade) -> void:
+	upgrade_selected.emit(upgrade)
+
+func emit_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
+	upgrade_added.emit(upgrade, current_upgrades)
+
+func emit_ability_controller_added(ability_controller: AbilityController) -> void:
+	ability_controller_added.emit(ability_controller)
 
 func emit_player_damaged() -> void:
 	player_damaged.emit()

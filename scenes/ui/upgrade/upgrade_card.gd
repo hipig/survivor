@@ -18,11 +18,17 @@ func _ready() -> void:
 
 func set_ability_upgrade(upgrade: Upgrade, equipped_upgrade: Dictionary) -> void:
 	if equipped_upgrade.is_empty():
-		equipped_upgrade = { quantity = 0 }
+		equipped_upgrade = { level = 0 }
 	name_label.text = upgrade.name
 	description_label.text = upgrade.description
-	level_label.text = "Level %d" % (equipped_upgrade.quantity + 1)
+	level_label.text = "Lv %d" % (equipped_upgrade.level + 1)
 	texture_rect.texture = upgrade.icon
+
+func play_in() -> void:
+	animation_player.play("in")
+	
+func play_discard() -> void:
+	animation_player.play("discard")
 
 func select_card() -> void:
 	disabled = true
@@ -34,7 +40,6 @@ func select_card() -> void:
 		other_card.play_discard()
 		
 	selected.emit()
-	Events.emit_upgrade_chosen()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if disabled:
@@ -44,7 +49,7 @@ func _on_gui_input(event: InputEvent) -> void:
 		select_card()
 
 func _on_mouse_entered() -> void:
-	animation_player.play("in")
+	pass
 	
 func _on_mouse_exited() -> void:
-	animation_player.play("discard")
+	pass

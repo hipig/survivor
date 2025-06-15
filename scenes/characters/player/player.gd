@@ -20,10 +20,13 @@ var is_dead: bool = false
 func  _ready() -> void:
 	collision_area.body_entered.connect(_on_body_entered)
 	collision_area.body_exited.connect(_on_body_exited)
+	collision_area.area_entered.connect(_on_body_entered)
+	collision_area.area_exited.connect(_on_body_exited)
 	damage_interval_timer.timeout.connect(_on_damage_timeout)
 	health_component.health_decreased.connect(on_health_decreased)
 	health_component.health_changed.connect(on_health_changed)
 	health_component.died.connect(on_died)
+	Events.upgrade_added.connect(_on_upgrade_added)
 
 func _process(_delta: float) -> void:
 	var movement_vector: Vector2 = get_movement_vector()
@@ -52,14 +55,11 @@ func check_deal_damage() -> void:
 func update_health_display() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(health_bar, "value", health_component.get_health_percent(), 0.6)\
-	.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)	
-
+	.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	
 func _on_body_entered(body: Node2D) -> void:
 	colliding_body_count += 1
 	check_deal_damage()
-	
-	if body is EnemyProjectile:
-		body.queue_free()
 
 func _on_body_exited(_body: Node2D) -> void:
 	colliding_body_count = max(colliding_body_count - 1, 0)
@@ -86,3 +86,10 @@ func on_died() -> void:
 	set_process(false)
 	animated_sprite.play("die_" + animate_dirction)
 	await animated_sprite.animation_finished
+
+func _on_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
+	if upgrade is AbilityUnlock:
+		upgrade = upgrade as AbilityUnlock
+		var new_ability_controller: AbilityController = upgrade.ability_controller.instantiate()
+		abilities.add_child(new_ability_controller)
+		Events.emit_ability_controller_added(new_ability_controller)

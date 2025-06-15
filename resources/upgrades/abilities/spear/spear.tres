@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AbilityUnlock" load_steps=4 format=3 uid="uid://csgbi7pn7x8e1"]
+
+[ext_resource type="PackedScene" uid="uid://b0c6yf2c1onyh" path="res://scenes/abilities/projectiles/spear/controller/spear_ability_controller.tscn" id="1_jcsn6"]
+[ext_resource type="Texture2D" uid="uid://bkcgf38i6h5fk" path="res://assets/textures/object/projectile/Spear.png" id="2_lfrnb"]
+[ext_resource type="Script" uid="uid://ch6q1xhxaktyt" path="res://scripts/resources/upgrade/ability_unlock.gd" id="3_griib"]
+
+[resource]
+script = ExtResource("3_griib")
+ability_controller = ExtResource("1_jcsn6")
+id = "spear"
+name = "长矛"
+description = "获得一把长矛，可以穿透敌人"
+icon = ExtResource("2_lfrnb")
+max_level = 1
+weight = 1
+metadata/_custom_type_script = "uid://ch6q1xhxaktyt"

@@ -35,7 +35,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3x22"]
-size = Vector2(10, 6)
+size = Vector2(12, 8)
 
 [node name="DaggerAbility" type="Node2D"]
 script = ExtResource("1_n77k2")
@@ -45,7 +45,7 @@ texture = ExtResource("2_8a5to")
 
 [node name="HitEffect" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(3, 0)
+position = Vector2(4, 0)
 sprite_frames = SubResource("SpriteFrames_p8esu")
 frame = 2
 frame_progress = 1.0

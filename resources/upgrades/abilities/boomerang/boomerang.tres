@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AbilityUnlock" load_steps=4 format=3 uid="uid://cark5wpaon7pt"]
+
+[ext_resource type="Script" uid="uid://ch6q1xhxaktyt" path="res://scripts/resources/upgrade/ability_unlock.gd" id="1_6c7xu"]
+[ext_resource type="PackedScene" uid="uid://blpbhhxu8ldx8" path="res://scenes/abilities/projectiles/boomerang/controller/boomerang_ability_controller.tscn" id="1_vvjvn"]
+[ext_resource type="Texture2D" uid="uid://dabsgmvvln1bm" path="res://assets/textures/object/projectile/Boomerang.png" id="2_penob"]
+
+[resource]
+script = ExtResource("1_6c7xu")
+ability_controller = ExtResource("1_vvjvn")
+id = "boomerang"
+name = "回旋镖"
+description = "获得一把回旋镖"
+icon = ExtResource("2_penob")
+max_level = 1
+weight = 1
+metadata/_custom_type_script = "uid://c6kg2rckvnfoy"

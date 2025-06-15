@@ -8,10 +8,6 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var shake_strength: float = 0.0
 var target_position: Vector2 = Vector2.ZERO
 
-
-func _ready() -> void:
-	make_current()
-
 func _process(delta : float) -> void:
 	acquire_target()
 	global_position = global_position.lerp(target_position, 1.0 - exp(-delta * 20))

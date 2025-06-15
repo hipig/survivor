@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://chnetpg3tqwhf"]
+
+[ext_resource type="Script" uid="uid://cxqtchkl6k4hy" path="res://scenes/characters/enemies/enemy_projectile.gd" id="1_cc5oj"]
+[ext_resource type="Texture2D" uid="uid://cg66gml2dc7ce" path="res://assets/textures/character/monster/medusa/Medusa_attack_hitbox.png" id="2_cc5oj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc5oj"]
+atlas = ExtResource("2_cc5oj")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r2xs"]
+atlas = ExtResource("2_cc5oj")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuqvy"]
+atlas = ExtResource("2_cc5oj")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gjds"]
+atlas = ExtResource("2_cc5oj")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_15te5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cc5oj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r2xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuqvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gjds")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cc5oj"]
+size = Vector2(24, 3)
+
+[node name="ArrowEnemyProjectile" type="Area2D"]
+collision_layer = 64
+collision_mask = 3
+script = ExtResource("1_cc5oj")
+metadata/_custom_type_script = "uid://cxqtchkl6k4hy"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_15te5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17, 5.5)
+shape = SubResource("RectangleShape2D_cc5oj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true

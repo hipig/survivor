@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=3 format=3 uid="uid://wfseh1ydeba4"]
+
+[ext_resource type="Texture2D" uid="uid://bkcgf38i6h5fk" path="res://assets/textures/object/projectile/Spear.png" id="1_g6aka"]
+[ext_resource type="Script" uid="uid://c4csonyccybvq" path="res://scripts/resources/upgrade/ability_upgrade.gd" id="2_gy1o7"]
+
+[resource]
+script = ExtResource("2_gy1o7")
+relation_id = "spear"
+id = "spear_pierce"
+name = "长矛穿透"
+description = "穿透+1"
+icon = ExtResource("1_g6aka")
+max_level = 5
+weight = 1
+metadata/_custom_type_script = "uid://ch6q1xhxaktyt"

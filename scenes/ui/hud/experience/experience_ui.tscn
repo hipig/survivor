@@ -60,7 +60,6 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_fbxlf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7mmcm")
 max_value = 1.0
-value = 0.5
 show_percentage = false
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer"]
@@ -69,5 +68,4 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_fbxlf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_lecwi")
 max_value = 1.0
-value = 0.5
 show_percentage = false

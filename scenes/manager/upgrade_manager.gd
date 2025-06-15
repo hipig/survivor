@@ -13,6 +13,7 @@ func _ready() -> void:
 	load_all_upgrades()
 	initialize_upgrade_pool()
 	Events.level_up.connect(_on_level_up)
+	Events.upgrade_selected.connect(_on_upgrade_selected)
 	
 func load_all_upgrades() -> void:
 	all_upgrades = FileLoader.load_directory_to_dict("resources/upgrades", ["tres"])
@@ -27,21 +28,21 @@ func apply_upgrade(upgrade: Upgrade) -> void:
 	if not has_upgrade:
 		current_upgrades[upgrade.id] = {
 			"resource": upgrade,
-			"quantity": 1
+			"level": 1
 		}
 	else:
-		current_upgrades[upgrade.id]["quantity"] += 1
+		current_upgrades[upgrade.id]["level"] += 1
 	
-	if upgrade.max_quantity > 0:
-		var current_quantity: int = current_upgrades[upgrade.id]["quantity"]
-		if current_quantity >= upgrade.max_quantity:
+	if upgrade.max_level > 0:
+		var current_level: int = current_upgrades[upgrade.id]["level"]
+		if current_level >= upgrade.max_level:
 			upgrade_pool.remove_item(upgrade)
 	
 	if upgrade is AbilityUnlock:
 		base_abilities.append(upgrade)
 	
 	update_upgrade_pool(upgrade)
-	Events.emit_ability_upgrade_added(upgrade, current_upgrades)
+	Events.emit_upgrade_added(upgrade, current_upgrades)
 	
 func update_upgrade_pool(upgrade: Upgrade):
 	for item in all_upgrades.values():
@@ -76,5 +77,5 @@ func _on_level_up(_level: int) -> void:
 	var chosen_upgrades = pick_upgrades()
 	Events.emit_upgrades_generated(chosen_upgrades, current_upgrades)
 
-func on_upgrade_selected(upgrade: Upgrade) -> void:
+func _on_upgrade_selected(upgrade: Upgrade) -> void:
 	apply_upgrade(upgrade)

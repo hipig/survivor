@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cm7m48govklbf"]
+[gd_scene load_steps=10 format=3 uid="uid://cm7m48govklbf"]
 
 [ext_resource type="Script" uid="uid://bf0seyme28at1" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="SpriteFrames" uid="uid://jbtbnjbmuoe6" path="res://resources/sprite_frames/beastmaster.tres" id="2_686vu"]
 [ext_resource type="PackedScene" uid="uid://ctidfyt6dvoha" path="res://scenes/components/health_component.tscn" id="4_hss88"]
-[ext_resource type="PackedScene" uid="uid://ghs7t6o6c22u" path="res://scenes/abilities/projectiles/dagger/controller/dagger_ability_controller.tscn" id="5_6avc5"]
 [ext_resource type="PackedScene" uid="uid://b0m7tie43m2sb" path="res://scenes/components/magnet_component.tscn" id="5_mk55u"]
 [ext_resource type="Theme" uid="uid://cf1bkdhjqfema" path="res://resources/themes/default.tres" id="5_qd3e3"]
 [ext_resource type="PackedScene" uid="uid://bqodew11eqfes" path="res://scenes/components/velocity_component.tscn" id="6_mk55u"]
@@ -17,7 +16,7 @@ radius = 21.0238
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_686vu"]
 radius = 7.0
-height = 18.0
+height = 16.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 0
@@ -42,9 +41,9 @@ acceleration = 15.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetComponent"]
 shape = SubResource("CircleShape2D_xuses")
+debug_color = Color(0.244992, 0.564413, 0.791619, 0.42)
 
 [node name="CollisionArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 96
 
@@ -53,8 +52,6 @@ shape = SubResource("CapsuleShape2D_686vu")
 debug_color = Color(0.994505, 0, 0.220991, 0.42)
 
 [node name="Abilities" type="Node2D" parent="."]
-
-[node name="DaggerAbilityController" parent="Abilities" instance=ExtResource("5_6avc5")]
 
 [node name="DamageIntervalTimer" type="Timer" parent="."]
 wait_time = 0.4
@@ -76,5 +73,5 @@ size_flags_horizontal = 4
 theme = ExtResource("5_qd3e3")
 theme_type_variation = &"HPProgressBar"
 max_value = 1.0
-value = 0.5
+value = 1.0
 show_percentage = false

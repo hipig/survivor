@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://w7tkvd7i88ri"]
+
+[ext_resource type="Script" uid="uid://bqg0kt4gx0ak6" path="res://scenes/components/ranged_attack_component.gd" id="1_yvd6x"]
+
+[node name="RangedAttackComponent" type="Node2D"]
+script = ExtResource("1_yvd6x")
+
+[node name="Timer" type="Timer" parent="."]

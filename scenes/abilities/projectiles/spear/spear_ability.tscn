@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpm58jry5htb6"]
+
+[ext_resource type="Script" uid="uid://d1afq8xmy75iu" path="res://scenes/abilities/projectiles/spear/spear_ability.gd" id="1_tvjwt"]
+[ext_resource type="Texture2D" uid="uid://bkcgf38i6h5fk" path="res://assets/textures/object/projectile/Spear.png" id="2_f4fec"]
+[ext_resource type="Texture2D" uid="uid://y37caded8bjk" path="res://assets/textures/object/projectile/Spear_impact.png" id="3_f4fec"]
+[ext_resource type="PackedScene" uid="uid://dxr2b6wxhhgsd" path="res://scenes/components/hit_box_component.tscn" id="4_40dwi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sewkl"]
+atlas = ExtResource("3_f4fec")
+region = Rect2(0, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvc8h"]
+atlas = ExtResource("3_f4fec")
+region = Rect2(6, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdsvq"]
+atlas = ExtResource("3_f4fec")
+region = Rect2(12, 0, 6, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p8esu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sewkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvc8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdsvq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3x22"]
+size = Vector2(20, 6)
+
+[node name="SpearAbility" type="Node2D"]
+script = ExtResource("1_tvjwt")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_f4fec")
+
+[node name="HitEffect" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(7, 0)
+sprite_frames = SubResource("SpriteFrames_p8esu")
+frame = 2
+frame_progress = 1.0
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_40dwi")]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_s3x22")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true

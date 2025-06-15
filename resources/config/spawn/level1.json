@@ -1,8 +1,17 @@
 [
 	{
-		"slime": 1
+		"slime": 5,
+		"medusa": 1
 	},
 	{
-		"slime": 20
+		"slime": 30,
+		"serpent_fly": 20,
+		"medusa": 10
+	},
+	{
+		"slime": 30,
+		"serpent_fly": 20,
+		"lizardfolk": 5,
+		"medusa": 1
 	}
 ]

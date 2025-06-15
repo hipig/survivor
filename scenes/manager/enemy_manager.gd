@@ -1,11 +1,13 @@
 extends Node2D
 class_name EnemyManager
 
-const SPAWN_RADIUS = 375
+const SPAWN_RADIUS = 300
 
 @export_file("*.json") var spawn_config: String
 
 @onready var timer: Timer = $Timer
+
+var all_enemies: Dictionary = {}
 
 var spawn_interval: float = 1.0
 var spawn_count: int = 0
@@ -16,6 +18,7 @@ var should_spawn: bool = true
 var current_difficulty: int = 0
 
 func _ready() -> void:
+	load_all_enemies()
 	prepare_spawn_table()
 	timer.wait_time = spawn_interval
 	timer.timeout.connect(_on_timeout)
@@ -28,11 +31,18 @@ func prepare_spawn_table() -> void:
 		var weight_table: WeightTable = WeightTable.new()
 		for enemy in pool.keys():
 			var enemy_scene: PackedScene = get_enemy_scene(enemy)
-			weight_table.add_item(enemy_scene, pool[enemy])
+			if enemy_scene:
+				weight_table.add_item(enemy_scene, pool[enemy])
 		spawn_table.append(weight_table)
 
+func load_all_enemies() -> void:
+	all_enemies = FileLoader.load_directory_to_dict("scenes/characters/enemies", ["tscn"])
+	
 func get_enemy_scene(enemy: String) -> PackedScene:
-	return load("res://scenes/characters/enemies/%s/%s_enemy.tscn" % [enemy, enemy])
+	var enemy_key: String = enemy + "_enemy"
+	if all_enemies.has(enemy_key):
+		return all_enemies.get(enemy_key)
+	return
 	
 func get_spawn_position() -> Vector2:
 	var player: Player = Groups.player
@@ -42,17 +52,20 @@ func get_spawn_position() -> Vector2:
 	var spawn_position: Vector2 = Vector2.ZERO
 	
 	var random_direction: Vector2 = Vector2.RIGHT.rotated(randf_range(0, TAU))
-	for i in 18:
+	var sector_count: int = 18
+	var sector_size: float = TAU / sector_count
+	for i in sector_count:
 		spawn_position = player.global_position + (random_direction * SPAWN_RADIUS)
 		var additional_check_offset: Vector2 = random_direction * 30
 		
+		var space_state = get_world_2d().direct_space_state
 		var query_parameters := PhysicsRayQueryParameters2D.create(player.global_position,spawn_position + additional_check_offset, 1)
-		var result := get_tree().root.world_2d.direct_space_state.intersect_ray(query_parameters)
+		var results := space_state.intersect_ray(query_parameters)
 	
-		if result.is_empty():
+		if results.is_empty():
 			break
 		else:
-			random_direction = random_direction.rotated(deg_to_rad(20))
+			random_direction = random_direction.rotated(deg_to_rad(sector_size))
 
 	return spawn_position
 	

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=3 format=3 uid="uid://cfcwtm2x4h3o1"]
+
+[ext_resource type="Script" uid="uid://c4csonyccybvq" path="res://scripts/resources/upgrade/ability_upgrade.gd" id="1_155ba"]
+[ext_resource type="Texture2D" uid="uid://d3551m3sleq2a" path="res://assets/textures/object/projectile/Dagger.png" id="2_w0wmt"]
+
+[resource]
+script = ExtResource("1_155ba")
+relation_id = "dagger"
+id = "dagger_count"
+name = "短剑数量"
+description = "短剑数量+1"
+icon = ExtResource("2_w0wmt")
+max_level = 5
+weight = 1
+metadata/_custom_type_script = "uid://ch6q1xhxaktyt"
