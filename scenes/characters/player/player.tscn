@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cm7m48govklbf"]
+[gd_scene load_steps=15 format=3 uid="uid://cm7m48govklbf"]
 
 [ext_resource type="Script" uid="uid://bf0seyme28at1" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="SpriteFrames" uid="uid://jbtbnjbmuoe6" path="res://resources/sprite_frames/beastmaster.tres" id="2_686vu"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://b0m7tie43m2sb" path="res://scenes/components/magnet_component.tscn" id="5_mk55u"]
 [ext_resource type="Theme" uid="uid://cf1bkdhjqfema" path="res://resources/themes/default.tres" id="5_qd3e3"]
 [ext_resource type="PackedScene" uid="uid://bqodew11eqfes" path="res://scenes/components/velocity_component.tscn" id="6_mk55u"]
+[ext_resource type="Script" uid="uid://p8ii46y80jqx" path="res://scripts/utils/state_machine/state_machine.gd" id="7_xuses"]
+[ext_resource type="Script" uid="uid://b2v5elk6lcle3" path="res://scenes/characters/player/states/idle_state.gd" id="8_42irl"]
+[ext_resource type="Script" uid="uid://cj01h5gktgt1u" path="res://scenes/characters/player/states/walk_state.gd" id="9_42irl"]
+[ext_resource type="Script" uid="uid://jvubv4rpegit" path="res://scenes/characters/player/states/die_state.gd" id="10_3xnwo"]
+[ext_resource type="Script" uid="uid://bu2ncyxorrpf0" path="res://scenes/characters/player/states/hit_state.gd" id="10_djydg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hss88"]
 radius = 4.0
@@ -25,7 +30,7 @@ script = ExtResource("1_6avc5")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_686vu")
-animation = &"die_up"
+animation = &"hit_left"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -75,3 +80,25 @@ theme_type_variation = &"HPProgressBar"
 max_value = 1.0
 value = 1.0
 show_percentage = false
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("7_xuses")
+initial_state = NodePath("Idle")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://p8ii46y80jqx"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("8_42irl")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("9_42irl")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Hit" type="Node" parent="StateMachine"]
+script = ExtResource("10_djydg")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("10_3xnwo")
+metadata/_custom_type_script = "uid://fkavctw3l75"

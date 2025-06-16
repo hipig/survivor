@@ -44,6 +44,5 @@ func _on_timeout() -> void:
 	for i in range(emit_count):
 		var boomerang_instance: BoomerangAbility = BOOMERANG_ABILITY.instantiate()
 		boomerang_instance.global_position = player.global_position
-		boomerang_instance.direction = boomerang_instance.global_position.direction_to(targetables[i].global_position)
 		foreground.add_child(boomerang_instance)
 		boomerang_instance.hit_box_component.damage = damage

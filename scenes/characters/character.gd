@@ -1,18 +1,21 @@
 extends CharacterBody2D
 class_name Character
 
-var animate_dirction: String = "down"
+var direction: Vector2 = Vector2.ZERO:
+	set(dir): update_animate_direction(dir)
+	
+var animate_direction: String = "down"
 
-func update_animate_dirction() -> void:
-	var x = abs(velocity.x)
-	var y = abs(velocity.y)
+func update_animate_direction(dir: Vector2) -> void:
+	var x = abs(dir.x)
+	var y = abs(dir.y)
 	if x > y:
-		if velocity.x > 0:
-			animate_dirction = "right"
+		if dir.x > 0:
+			animate_direction = "right"
 		else:
-			animate_dirction = "left"
+			animate_direction = "left"
 	elif x < y:
-		if velocity.y > 0:
-			animate_dirction = "down"
+		if dir.y > 0:
+			animate_direction = "down"
 		else:
-			animate_dirction = "up"
+			animate_direction = "up"

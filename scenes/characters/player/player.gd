@@ -12,12 +12,14 @@ signal ability_controller_added(ability_controller: Node)
 @onready var damage_interval_timer: Timer = $DamageIntervalTimer
 @onready var heal_interval_timer: Timer = $HealIntervalTimer
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var state_machine: StateMachine = $StateMachine
 
 
 var colliding_body_count: int = 0
 var is_dead: bool = false
 
 func  _ready() -> void:
+	state_machine.start()
 	collision_area.body_entered.connect(_on_body_entered)
 	collision_area.body_exited.connect(_on_body_exited)
 	collision_area.area_entered.connect(_on_body_entered)
@@ -30,21 +32,16 @@ func  _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var movement_vector: Vector2 = get_movement_vector()
-	var direction: Vector2 = movement_vector.normalized()
-	velocity_component.direction = direction
-	velocity_component.accelerate_in_direction()
-	velocity_component.move(self)
+	if movement_vector != Vector2.ZERO:
+		direction = movement_vector
 	
-	update_animate_dirction()
-	if direction.length() > 0:
-		animated_sprite.play("walk_" + animate_dirction)
-	else:
-		animated_sprite.play("idle_" + animate_dirction)
+	velocity_component.accelerate_in_direction(movement_vector)
+	velocity_component.move(self)
 	
 func get_movement_vector() -> Vector2:
 	var x: float = Input.get_axis("move_left", "move_right")
 	var y: float = Input.get_axis("move_up", "move_down")
-	return Vector2(x, y)
+	return Vector2(x, y).normalized()
 			
 func check_deal_damage() -> void:
 	if colliding_body_count == 0 or not damage_interval_timer.is_stopped():
@@ -59,6 +56,7 @@ func update_health_display() -> void:
 	
 func _on_body_entered(body: Node2D) -> void:
 	colliding_body_count += 1
+	state_machine.transition_to("Hit")
 	check_deal_damage()
 
 func _on_body_exited(_body: Node2D) -> void:
@@ -77,15 +75,7 @@ func on_health_changed() -> void:
 	update_health_display()
 
 func on_died() -> void:
-	if is_dead:
-		return
-	player_has_died.emit()
-	is_dead = true
-	health_bar.visible = false
-	abilities.set_process(false)
-	set_process(false)
-	animated_sprite.play("die_" + animate_dirction)
-	await animated_sprite.animation_finished
+	state_machine.transition_to("Die")
 
 func _on_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
 	if upgrade is AbilityUnlock:

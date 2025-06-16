@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://y6rft73ladd"]
+[gd_scene load_steps=65 format=3 uid="uid://y6rft73ladd"]
 
 [ext_resource type="Script" uid="uid://5gwtpp7sdk67" path="res://scenes/characters/enemies/base_enemy.gd" id="1_jbkbc"]
 [ext_resource type="Texture2D" uid="uid://k6k557tlgujx" path="res://assets/textures/character/monster/serpent_fly/SerpentFly_die.png" id="2_yeb5o"]
@@ -11,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://bqodew11eqfes" path="res://scenes/components/velocity_component.tscn" id="9_g1cmc"]
 [ext_resource type="PackedScene" uid="uid://ctidfyt6dvoha" path="res://scenes/components/health_component.tscn" id="10_sjng1"]
 [ext_resource type="PackedScene" uid="uid://b5fgovqlplcuv" path="res://scenes/components/hurt_box_component.tscn" id="11_qpot0"]
+[ext_resource type="Script" uid="uid://p8ii46y80jqx" path="res://scripts/utils/state_machine/state_machine.gd" id="12_wdv6l"]
+[ext_resource type="Script" uid="uid://bc5fp3f12jii1" path="res://scenes/characters/enemies/states/idle_state.gd" id="13_c7rrt"]
+[ext_resource type="Script" uid="uid://c1flc87yiorua" path="res://scenes/characters/enemies/states/chase_state.gd" id="14_tyv5y"]
+[ext_resource type="Script" uid="uid://qpwlmjefn2gv" path="res://scenes/characters/enemies/states/hit_state.gd" id="15_g1cmc"]
+[ext_resource type="Script" uid="uid://807yolp1or66" path="res://scenes/characters/enemies/states/die_state.gd" id="16_sjng1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i61da"]
 atlas = ExtResource("2_yeb5o")
@@ -447,3 +452,25 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 shape = SubResource("RectangleShape2D_ahvy1")
 debug_color = Color(0.996423, 0, 0.187011, 0.42)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("12_wdv6l")
+initial_state = NodePath("Idle")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://p8ii46y80jqx"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("13_c7rrt")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("14_tyv5y")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Hit" type="Node" parent="StateMachine"]
+script = ExtResource("15_g1cmc")
+metadata/_custom_type_script = "uid://fkavctw3l75"
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("16_sjng1")
+metadata/_custom_type_script = "uid://fkavctw3l75"

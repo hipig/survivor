@@ -49,7 +49,7 @@ func _on_timeout() -> void:
 		foreground.add_child(dagger_instance)
 		dagger_instance.hit_box_component.damage = damage
 		
-func _on_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
+func _on_upgrade_added(upgrade: Upgrade, _current_upgrades: Dictionary) -> void:
 	match upgrade.id:
 		"dagger_count":
 			count += 1

@@ -8,7 +8,7 @@ var speed: float = 50.0
 var direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	rotation = direction.angle()
+	rotate(direction.angle())
 	timer.timeout.connect(_on_timeout)
 	area_entered.connect(_on_area_entered)
 
@@ -22,5 +22,4 @@ func _on_timeout() -> void:
 	destroy()
 
 func _on_area_entered(_area: Area2D) -> void:
-	print(_area)
 	destroy()

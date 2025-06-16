@@ -72,7 +72,7 @@ func find_best_direction(player: Player) -> Vector2:
 	var best_angle = best_sector * sector_size + sector_size / 2.0
 	return Vector2(cos(best_angle), sin(best_angle))
 
-func _on_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
+func _on_upgrade_added(upgrade: Upgrade, _current_upgrades: Dictionary) -> void:
 	match upgrade.id:
 		"spear_pierce":
 			max_pierce += 1
