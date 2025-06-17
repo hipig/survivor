@@ -15,7 +15,6 @@ func _process(_delta: float) -> void:
 	if target_direction == Vector2.ZERO:
 		velocity_component.accelerate_to_player()
 	else:
-		direction = target_direction
 		velocity_component.decelerate()
 		attack(target_direction)
 	
@@ -26,8 +25,12 @@ func get_target_direction_in_range() -> Vector2:
 	if player == null or player.is_dead: 
 		return Vector2.ZERO
 
+	var to_direction = global_position.direction_to(player.global_position)
+	if to_direction != Vector2.ZERO:
+		direction = to_direction
+	
 	if player.global_position.distance_squared_to(global_position) < attack_range * attack_range:
-		return global_position.direction_to(player.global_position)
+		return to_direction
 	return Vector2.ZERO
 	
 func attack(target_direction: Vector2) -> void:

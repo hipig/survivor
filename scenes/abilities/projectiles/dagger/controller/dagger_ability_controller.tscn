@@ -7,6 +7,7 @@
 script = ExtResource("1_syrel")
 id = "dagger"
 icon = ExtResource("2_u66b8")
+base_damage = 15.0
 
-[node name="ReleaseTimer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 autostart = true

@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://b78nuudvslcns"]
+
+[ext_resource type="Script" uid="uid://7suxj1v5gank" path="res://scenes/abilities/projectiles/arrow/arrow_ability.gd" id="1_ycc02"]
+[ext_resource type="Texture2D" uid="uid://bgj2u6l3k66v4" path="res://assets/textures/object/projectile/Arrow.png" id="2_ycc02"]
+[ext_resource type="Texture2D" uid="uid://byds7glip4v54" path="res://assets/textures/object/projectile/Arrow_impact.png" id="3_ycc02"]
+[ext_resource type="PackedScene" uid="uid://dxr2b6wxhhgsd" path="res://scenes/components/hit_box_component.tscn" id="4_qndxr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qutmd"]
+atlas = ExtResource("3_ycc02")
+region = Rect2(0, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki5ah"]
+atlas = ExtResource("3_ycc02")
+region = Rect2(6, 0, 6, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cg6em"]
+atlas = ExtResource("3_ycc02")
+region = Rect2(12, 0, 6, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p8esu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qutmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki5ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cg6em")
+}],
+"loop": false,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3x22"]
+size = Vector2(14, 8)
+
+[node name="ArrowAbility" type="Node2D"]
+script = ExtResource("1_ycc02")
+damage = 8.0
+speed = 100.0
+metadata/_custom_type_script = "uid://db1brvbik8an"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ycc02")
+
+[node name="HitEffect" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_p8esu")
+frame = 2
+frame_progress = 1.0
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_qndxr")]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_s3x22")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true

@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://blpbhhxu8ldx8"]
+[gd_scene load_steps=3 format=3 uid="uid://blpbhhxu8ldx8"]
 
 [ext_resource type="Script" uid="uid://m7y8h4iqal3q" path="res://scenes/abilities/projectiles/boomerang/controller/boomerang_ability_controller.gd" id="1_woi7d"]
+[ext_resource type="Texture2D" uid="uid://dabsgmvvln1bm" path="res://assets/textures/object/projectile/Boomerang.png" id="2_vuptq"]
 
 [node name="BoomerangAbilityController" type="Node2D"]
 script = ExtResource("1_woi7d")
+id = "boomerang"
+icon = ExtResource("2_vuptq")
+release_duration = 0.8
+max_range = 120.0
+base_damage = 5.0
 metadata/_custom_type_script = "uid://ck7ugxdnedfrf"
 
 [node name="Timer" type="Timer" parent="."]

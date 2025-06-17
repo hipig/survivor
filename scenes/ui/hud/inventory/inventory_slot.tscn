@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dd8vag12obub5"]
+
+[ext_resource type="Texture2D" uid="uid://4csh6iknf7ek" path="res://assets/textures/ui/panel/BGbox_02A.png" id="1_p7xga"]
+[ext_resource type="Texture2D" uid="uid://bgj2u6l3k66v4" path="res://assets/textures/object/projectile/Arrow.png" id="2_abwdw"]
+[ext_resource type="Script" uid="uid://dtjiu1ea5mf3v" path="res://scenes/ui/hud/inventory/inventory_slot.gd" id="2_l83dw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l83dw"]
+atlas = ExtResource("1_p7xga")
+region = Rect2(6, 6, 36, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f5ebq"]
+texture = SubResource("AtlasTexture_l83dw")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+
+[node name="InventorySlot" type="PanelContainer"]
+custom_minimum_size = Vector2(36, 36)
+offset_right = 36.0
+offset_bottom = 36.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_f5ebq")
+script = ExtResource("2_l83dw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_abwdw")
+stretch_mode = 5

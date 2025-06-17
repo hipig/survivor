@@ -63,11 +63,11 @@ func get_spawn_position() -> Vector2:
 		var results := space_state.intersect_ray(query_parameters)
 	
 		if results.is_empty():
-			break
+			return spawn_position
 		else:
 			random_direction = random_direction.rotated(deg_to_rad(sector_size))
 
-	return spawn_position
+	return Vector2.ZERO
 	
 func pick_random_enemy(difficulty: int) -> PackedScene:
 	if difficulty >= spawn_table.size():
@@ -98,10 +98,12 @@ func _on_timeout() -> void:
 		var spawn_item: PackedScene = pick_random_enemy(current_difficulty)
 		if spawn_item:
 			var enemy: Node2D = spawn_item.instantiate() as Node2D
-			enemy.global_position = get_spawn_position()
-			var entities_layer: Node2D = Groups.entities_layer
-			entities_layer.add_child(enemy)
-			spawn_count += 1
+			var spawn_position: Vector2 = get_spawn_position()
+			if spawn_position != Vector2.ZERO:
+				enemy.global_position = spawn_position
+				var entities_layer: Node2D = Groups.entities_layer
+				entities_layer.add_child(enemy)
+				spawn_count += 1
 
 func _on_enemy_died(_enemy: Enemy) -> void:
 	spawn_count -= 1

@@ -1,48 +1,28 @@
 extends AbilityController
+class_name SpearAbilityController
 
 const SPEAR_ABILITY = preload("res://scenes/abilities/projectiles/spear/spear_ability.tscn")
 
-const MAX_RANGE: float = 200.0
+@export var pierce_count: int = 3
 
-@onready var timer: Timer = $Timer
-
-var max_pierce: int = 3
-var base_damage: float = 15.0
-var damage: float = base_damage
-var release_interval: float = 1.2
-
-var count: int = 1
-
-func _ready() -> void:
-	timer.wait_time = release_interval
-	timer.timeout.connect(_on_timeout)
-	Events.upgrade_added.connect(_on_upgrade_added)
-
-func _on_timeout() -> void:
-	var player: Player = Groups.player
-	if player == null or player.is_dead:
-		return
-	
-	var foreground: Node2D = Groups.foreground_layer as Node2D
-	if foreground == null:
-		return
-	
+func release(player: Player, foreground: Node2D, targetables: Array[Node]) -> void:
 	var best_direction: Vector2 = find_best_direction(player)
 	if best_direction == Vector2.ZERO:
 		return
-	
-	for i in range(count):
+		
+	var emit_count: int = min(count, targetables.size())
+	for i in range(emit_count):
 		var spear_instance: SpearAbility = SPEAR_ABILITY.instantiate()
 		spear_instance.global_position = player.global_position
-		spear_instance.max_pierce_count = max_pierce
-		spear_instance.set_direction(best_direction)
+		spear_instance.pierce_count = pierce_count
+		spear_instance.direction = best_direction
+		spear_instance.damage = damage
 		foreground.add_child(spear_instance)
-		spear_instance.hit_box_component.damage = damage
 
 func find_best_direction(player: Player) -> Vector2:
 	var targetables: Array[Node] = Groups.targetables
 	targetables = targetables.filter(func(targetable: Node2D) -> bool: 
-		return targetable.global_position.distance_squared_to(player.global_position) < MAX_RANGE * MAX_RANGE
+		return targetable.global_position.distance_squared_to(player.global_position) < max_range * max_range
 	)
 	
 	if targetables.size() == 0:
@@ -72,7 +52,7 @@ func find_best_direction(player: Player) -> Vector2:
 	var best_angle = best_sector * sector_size + sector_size / 2.0
 	return Vector2(cos(best_angle), sin(best_angle))
 
-func _on_upgrade_added(upgrade: Upgrade, _current_upgrades: Dictionary) -> void:
+func upgrade_added(upgrade: Upgrade, _current_upgrades: Dictionary) -> void:
 	match upgrade.id:
 		"spear_pierce":
-			max_pierce += 1
+			pierce_count += 1

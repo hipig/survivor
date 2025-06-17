@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://53p07tqxg6ol"]
+
+[ext_resource type="Script" uid="uid://dovr62ucjt763" path="res://scenes/abilities/projectiles/arrow/controller/arrow_ability_controller.gd" id="1_aaxme"]
+[ext_resource type="Texture2D" uid="uid://bgj2u6l3k66v4" path="res://assets/textures/object/projectile/Arrow.png" id="2_4ry28"]
+
+[node name="ArrowAbilityController" type="Node2D"]
+script = ExtResource("1_aaxme")
+id = "arrow"
+icon = ExtResource("2_4ry28")
+release_duration = 1.5
+max_range = 200.0
+base_damage = 15.0
+metadata/_custom_type_script = "uid://ck7ugxdnedfrf"
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

@@ -1,66 +1,59 @@
 extends ProjectileAbility
 class_name BoomerangAbility
 
-@onready var sprite: Sprite2D = $Sprite
-@onready var hit_effect: AnimatedSprite2D = $HitEffect
-@onready var hit_box_component: HitBoxComponent = $HitBoxComponent
-@onready var timer: Timer = $Timer
-
-var max_range: float = 100.0
-var direction: Vector2 = Vector2.ZERO
-var speed: float = 200.0
 var rotate_speed: float = 50.0
 
-var rebound_count: int = 3
-var enterd_list: Array[int]
-
-func _ready() -> void:
-	change_direction()
-	hit_box_component.area_entered.connect(_on_area_entered)
-	timer.timeout.connect(_on_timeout)
+var ricochet_count: int = 3
+var ricochet_range: float = 100.0
+var returning: bool = false
+var target_position: Vector2
+var hit_targets: Array[Node]
 
 func _process(delta: float) -> void:
-	position += direction * speed * delta
-	rotate(direction.angle() * rotate_speed * delta)
+	var target_direction = global_position.direction_to(target_position)
+	position += target_direction * speed * delta
+	rotate(target_direction.angle() * rotate_speed * delta)
+	
+	if global_position.distance_to(target_position) < 10.0:
+		if returning:
+			destroy()
+		else:
+			find_next_target()
 
-func change_direction() -> void:
-	var nearest_targetable = find_nearest_targetable(global_position, max_range)
-	if nearest_targetable:
-		direction = global_position.direction_to(nearest_targetable.global_position)
-
-func find_nearest_targetable(center: Vector2, max_range: float) -> Node2D:
+func find_next_target() -> void:
 	var targetables: Array[Node] = Groups.targetables
 	targetables = targetables.filter(func(targetable: Node2D) -> bool: 
-		return targetable.global_position.distance_squared_to(center) < max_range * max_range and not enterd_list.has(targetable.get_instance_id())
+		return not hit_targets.has(targetable) and global_position.distance_squared_to(targetable.global_position) < ricochet_range * ricochet_range
 	)
 	
 	if targetables.size() == 0:
+		return_to_player()
 		return
 	
 	targetables.sort_custom(func(a : Node2D, b:Node2D) -> bool:
-		var a_distance: float = a.global_position.distance_squared_to(center)
-		var b_distance: float = b.global_position.distance_squared_to(center)
+		var a_distance: float = a.global_position.distance_squared_to(global_position)
+		var b_distance: float = b.global_position.distance_squared_to(global_position)
 		return a_distance < b_distance
 	)
 	
-	return targetables[0]
+	target_position = targetables[0].global_position
 
-func destroy() -> void:
-	set_process(false)
-	sprite.hide()
-	hit_effect.show()
-	hit_effect.play()
-	await hit_effect.animation_finished
-	queue_free()
-	
+func return_to_player() -> void:
+	var player = Groups.player
+	if not player:
+		return
+		
+	returning = true
+	target_position = player.global_position
+
 func _on_area_entered(area: Area2D) -> void:
-	enterd_list.append(area.get_instance_id())
-	var nearest_targetable = find_nearest_targetable(global_position, 150.0)
-	if enterd_list.size() < rebound_count and nearest_targetable:
-		var nearest_direction = global_position.direction_to(nearest_targetable.global_position)
-		direction = nearest_direction
+	var area_owner: Node2D = area.owner
+	hit_targets.append(area_owner)
+	effect()
+	
+	ricochet_count -= 1
+	
+	if ricochet_count <= 0:
+		return_to_player()
 	else:
-		destroy()
-
-func _on_timeout() -> void:
-	destroy()
+		find_next_target()

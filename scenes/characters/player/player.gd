@@ -2,7 +2,6 @@ extends Character
 class_name Player
 
 signal player_has_died
-signal ability_controller_added(ability_controller: Node)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var velocity_component: VelocityComponent = $VelocityComponent
@@ -54,7 +53,7 @@ func update_health_display() -> void:
 	tween.tween_property(health_bar, "value", health_component.get_health_percent(), 0.6)\
 	.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	colliding_body_count += 1
 	state_machine.transition_to("Hit")
 	check_deal_damage()
@@ -77,7 +76,7 @@ func on_health_changed() -> void:
 func on_died() -> void:
 	state_machine.transition_to("Die")
 
-func _on_upgrade_added(upgrade: Upgrade, current_upgrades: Dictionary) -> void:
+func _on_upgrade_added(upgrade: Upgrade, _current_upgrades: Dictionary) -> void:
 	if upgrade is AbilityUnlock:
 		upgrade = upgrade as AbilityUnlock
 		var new_ability_controller: AbilityController = upgrade.ability_controller.instantiate()
